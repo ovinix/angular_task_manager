@@ -15,11 +15,21 @@ ready = function() {
 	$("#lists").on('show.bs.collapse', '.panel', function (e) {
 	  $(e.currentTarget).css("border-radius", "");
 	});
+
 };
 $(document).ready(ready);
 // turbolinks event 
 // https://habrahabr.ru/post/167161/
+// load angular with turbolinks event
+$(document).on("page:load", function() {
+	$('[ng-app]').each(function() {
+		module = $(this).attr('ng-app')
+    	angular.bootstrap(this, [module])
+	});
+});
 $(document).on("page:load", ready);
+
+
 
 /* other */
 closeFlash = function() {
