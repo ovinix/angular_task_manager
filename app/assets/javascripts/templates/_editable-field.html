@@ -1,0 +1,15 @@
+<div ng-hide="editable">
+	<div class="pull-left">
+		<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
+		{{fieldValue}}		
+	</div>
+	<div class="pull-right">
+		<span ng-click="changeState()" class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span> |
+		<span ng-click="deleteList()" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+	</div>
+</div>
+<form ng-show="editable" class="form-inline">
+	<input type='text' ng-model='fieldValue' class="form-control" required maxlength="50">
+	<button ng-click="save()" type="submit" class="btn btn-success">Save</button>
+	<button ng-click="cancel()" class="btn btn-default">Cancel</button>
+</form>

@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <div class="row">
+  <div class="row" ng-app="taskManager">
     <div class="center text-uppercase">
       <h2>
         <strong>Simple todo lists</strong><br/>
@@ -9,18 +9,11 @@
 
     <br/>
 
-    <div id="lists" class="col-md-10 col-md-offset-1">
-      <%= render @lists %>
-    </div>
+    <ng-view></ng-view>
 
-    <div class="center">
-      <%= link_to new_list_path, remote: true, class: 'btn btn-primary', 'data-toggle': "modal", 'data-target': '#modal-window' do %>
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        <strong>Add TODO List</strong>
-      <% end %>
-    </div>
-
-    <div id="modal-window" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+    <!-- <div id="lists" class="col-md-10 col-md-offset-1">
+      <#%= render @lists %>
+    </div> -->
   </div>
 <% else %>
   <div class="center jumbotron">

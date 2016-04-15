@@ -1,0 +1,45 @@
+<div id="list-{{list.id}}" class="panel panel-primary">
+	<div class="panel-heading">
+		<div class="row">
+			<div class="col-md-12">
+				<div list-editable field-value="list.title" delete-list="delList(list)" update-list="updList(list)"></div>
+			</div>
+		</div>
+	</div>
+	<div class="panel-body">
+		<form ng-submit="addNewTask()">
+			<div class="input-group">
+				<input ng-model="newTaskContent" type="text" class="form-control" placeholder="Start typing here to create a task.." required maxlength="140">
+				<div class="input-group-btn">
+					<button type="submit" class="btn btn-success">Add Task</button>
+				</div>
+			</div>
+			<div ng-show="newTaskContent.length > 120" style="font-size: 10px; color: red;">
+				{{newTaskContent.length + "/140"}}
+			</div>
+		</form>
+	</div>
+	<table class="table table-bordered">
+		<tbody>
+			<tr ng-show="list.tasks.length" ng-repeat="task in list.tasks.slice().reverse()">
+				<td class="col-md-1 text-center"><input ng-model="task.done" ng-click="cmpltTask(list, task)" type="checkbox"></td>
+				<td class="task-{{task.done}} col-md-9">
+					<span class="glyphicon glyphicon-star" ng-class="{'star': task.done != true}" aria-hidden="true" ng-if="task.priority == 'important'"></span>
+					{{task.content}}
+				</td>
+				<td class="col-md-2 text-center">
+					<span ng-click="prtzTask(list, task)" class="glyphicon glyphicon glyphicon-star-empty" aria-hidden="true"></span> |
+					<a href="#/list/{{list.id}}/task/{{task.id}}">
+						<span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span>
+					</a> |
+					<span ng-click="delTask(list, task)" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+				</td>
+			</tr>
+			<tr ng-hide="list.tasks.length" class="text-center">
+				<td>
+					<h4><small>No TODOS for now.</small></h4>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

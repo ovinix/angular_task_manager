@@ -18,6 +18,8 @@ gem 'momentjs-rails',                   '2.9.0'
 gem 'bootstrap3-datetimepicker-rails',  '4.17.37'
 gem 'remotipart',                       '~> 1.2'
 gem 'cancancan',                        '~> 1.10'
+gem 'angularjs-rails',                  '1.5.0'
+gem 'angular-rails-templates',          '1.0.0'
 
 group :development, :test do
   gem 'sqlite3',            '1.3.9'
