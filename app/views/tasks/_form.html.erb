@@ -1,0 +1,9 @@
+<%= form_for([list, task], remote: true) do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
+	<div class="input-group">
+	  <%= f.text_field :content, placeholder: "Start typing here to create a task..", class: 'form-control' %>
+	  <span class="input-group-btn">
+	    <%= button_tag "Add Task", type: "submit", class: 'btn btn-primary' %>
+	  </span>
+	</div>
+<% end %>

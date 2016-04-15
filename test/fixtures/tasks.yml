@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: first
+  list: one
+  content: 'My String'
+  created_at: <%= 10.hours.ago %>
+
+two:
+  user: first
+  list: one
+  content: 'MyString2'
+  created_at: <%= 10.minutes.ago %>
+
+most_recent:
+  user: first
+  list: one
+  content: 'Most recent'
+  created_at: <%= 3.minutes.ago %>
+
+completed:
+  user: first
+  list: one
+  content: 'Completed'
+  completed_at: <%= 5.minutes.ago %>
+
+important:
+  user: first
+  list: one
+  content: 'Important'
+  priority: <%= :important %>

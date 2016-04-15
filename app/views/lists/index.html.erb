@@ -1,0 +1,31 @@
+<% if user_signed_in? %>
+  <div class="row">
+    <div class="center text-uppercase">
+      <h2>
+        <strong>Simple todo lists</strong><br/>
+        <small>From Volodymyr Shvydkyi</small>
+      </h2>
+    </div>
+
+    <br/>
+
+    <div id="lists" class="col-md-10 col-md-offset-1">
+      <%= render @lists %>
+    </div>
+
+    <div class="center">
+      <%= link_to new_list_path, remote: true, class: 'btn btn-primary', 'data-toggle': "modal", 'data-target': '#modal-window' do %>
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        <strong>Add TODO List</strong>
+      <% end %>
+    </div>
+
+    <div id="modal-window" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+  </div>
+<% else %>
+  <div class="center jumbotron">
+    <h1>Welcome to Task Manager App</h1> 
+    <h2><small>Created by Volodymyr Shvydkyi</small></h2>
+    <%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-lg btn-primary" %>
+  </div>
+<% end %>

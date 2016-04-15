@@ -1,0 +1,28 @@
+<%= form_for([task, comment], html: { multipart: true }, 
+															remote: true, 
+															authenticity_token: true) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="input-group">
+    <%= f.text_field :content, placeholder: "Start typing here to create a comment..", class: 'form-control' %>
+    <span class="input-group-btn">
+      <%= button_tag "Add Comment", type: "submit", class: 'btn btn-primary' %>
+    </span>
+  </div>
+  <%= f.file_field :file, title: "Choose a file.." %>
+  <script type="text/javascript">
+	  $('#comment_file').bind('change', function() {
+	    var size_in_megabytes = this.files[0].size/1024/1024;
+	    if (size_in_megabytes > 1) {
+	      alert('Maximum file size is 1MB. Please choose a smaller file.');
+	    }
+	  });
+
+	  $('#comment_file').bootstrapFileInput();
+
+	  $('#new_comment').on('submit', function(e){
+        $(this).find("button").prop( "disabled", true );
+        $(this).find("button").html('Please wait..');
+    });
+	</script>
+<% end %>
+

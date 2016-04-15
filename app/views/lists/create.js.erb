@@ -1,0 +1,6 @@
+<% if @list.errors.any? %>
+	$("#modal-window").html("<%= escape_javascript(render 'lists/modal', list: @list, modal_title: 'Add TODO List') %>");
+<% else %>
+	$("div#modal-window").modal('hide');
+	$("div#lists").prepend("<%= escape_javascript( render @list )%>");
+<% end %>

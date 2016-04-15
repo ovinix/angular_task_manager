@@ -1,0 +1,6 @@
+<% if @comment.errors.any? %>
+	$("#new_comment").replaceWith("<%= escape_javascript( render 'comments/form', task: @comment.task, comment: @comment )%>");
+<% else %>
+	$("#new_comment").replaceWith("<%= escape_javascript( render 'comments/form', task: @comment.task, comment: Comment.new )%>");
+	$(".comments").append("<%= escape_javascript( render @comment ) %>");
+<% end %>

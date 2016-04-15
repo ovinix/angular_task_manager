@@ -1,0 +1,67 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Close">×</button>
+      <h4 class="modal-title">
+        <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
+        <%= modal_title %>
+      </h4>
+    </div>
+    
+    <div class="modal-body">
+      <%= form_for([task.list, task], remote: true) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <div class="input-group">
+          <span class="input-group-addon">
+              <%= f.check_box :completed_at, { class: 'group-checkbox', checked: task.completed? }, Time.zone.now, "" %>
+          </span>
+          <%= f.text_field :content, placeholder: "Start typing here..", autofocus: true, class: 'form-control' %>
+        </div>
+        <br/>
+        <!-- DatTime Picker -->
+        <div class="form-group">
+          <%= f.label :deadline_at %>
+          <div class='input-group date' id='datetimepicker1'>
+            <%= f.text_field :deadline_at, placeholder: "Set deadline here..", class: "form-control" %>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+          </div>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker({
+                  format: "YYYY-MM-DD h:mm A"
+                });
+            });
+        </script>
+        <!-- End Datetime Picker -->
+        <label>Priority</label>
+        <div class="btn-group btn-group-justified" data-toggle="buttons">
+          <%= f.label :priority, 'Normal', class: "btn btn-default #{'active' if task.normal?}" do %>
+            <%= f.radio_button :priority, :normal, checked: task.normal? %>
+            Normal
+          <% end %>
+          <%= f.label :priority, 'Important', class: "btn btn-default #{'active' if task.important?}" do %>
+            <%= f.radio_button :priority, :important, checked: task.important? %>
+            <span class="star glyphicon glyphicon glyphicon-star" aria-hidden="true"></span> 
+             Important
+          <% end %>
+        </div>
+        <br/>
+        <div class="pull-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Update", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+      <br/>
+      <div class="comments">
+        <h4 class="text-center">
+          Comments
+        </h4>
+        <%= render 'comments/form', task: task, comment: Comment.new %>
+        <%= render task.comments %>
+      </div>
+    </div>
+  </div>
+</div>

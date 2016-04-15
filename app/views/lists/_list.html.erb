@@ -1,0 +1,40 @@
+<div id="list-<%= list.id %>" class="panel panel-primary">
+  <div class="panel-heading" data-toggle="collapse" data-target="#list-<%= list.id %>-todos">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pull-left">
+          <strong>
+            <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> 
+            <%= list.title %>  
+          </strong>          
+        </div>         
+        <div class="pull-right">
+          <%= link_to edit_list_path(list), remote: true, 'data-toggle': "modal", 'data-target': '#modal-window', title: "Edit" do %>
+            <span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span>
+          <% end %> |
+          <%= link_to list, method: :delete, remote: true, data: { confirm: 'Are you sure?' }, title: "Delete" do %>
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          <% end %>                
+        </div> 
+      </div>        
+    </div>
+  </div>
+  <div id="list-<%= list.id %>-todos" class="panel-collapse collapse in">
+    <div class="panel-body">
+      <%= render 'tasks/form', list: list, task: Task.new %>
+    </div>
+    <table class="table table-curved">
+      <tbody>
+        <% if list.tasks.any? %>
+          <%= render list.tasks %>
+        <% else %>
+          <tr class="text-center">
+            <td>
+              <h4><small>No TODOS for now.</small> </h4>         
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>        
+</div>

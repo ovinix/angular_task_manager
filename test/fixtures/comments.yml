@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: first
+  task: one
+  content: 'Comment String'
+  created_at: <%= 10.hours.ago %>
+
+two:
+  user: first
+  task: one
+  content: 'MyString2'
+  created_at: <%= 10.minutes.ago %>
+
+
+most_recent:
+  user: first
+  task: one
+  content: 'Most recent'
+  created_at: <%= 5.minutes.ago %>
+

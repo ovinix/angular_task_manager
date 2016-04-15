@@ -1,0 +1,15 @@
+<div class="comment" id="comment-<%= comment.id %>">
+  <span class="comment-author"><%= comment.user.name %></span> 
+  <span class="comment-time"><%= time_ago_in_words(comment.created_at) %></span> 
+  <span>
+  	<%= link_to	"×", task_comment_path(comment.task, comment), remote: true, method: :delete, class: "close", title: "Delete" %>
+  </span>
+  <div class="comment-text"><%= comment.content %></div>
+  <% if comment.file? %>
+		<% if Rails.env.production? %>
+			<b>File:</b> <%= link_to comment.file.public_id, comment.file.url %>
+		<% else %>
+			<b>File:</b> <%= link_to comment.file.filename, comment.file.url %>
+		<% end %>
+  <% end %>
+</div>

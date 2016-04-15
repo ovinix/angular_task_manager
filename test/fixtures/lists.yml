@@ -1,0 +1,14 @@
+one:
+  title: 'List one'
+  user: first
+  created_at: <%= 10.hours.ago %>
+
+two:
+  title: 'List two'
+  user: first
+  created_at: <%= 10.minutes.ago %>
+
+most_recent:
+  title: 'List 3'
+  user: first
+  created_at: <%= 5.minutes.ago %>
