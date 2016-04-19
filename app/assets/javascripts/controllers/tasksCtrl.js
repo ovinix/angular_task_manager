@@ -40,8 +40,16 @@ function($scope, $location, $timeout, $routeParams, taskFactory, listFactory){
 		else {
 			$scope.task.completed_at = null;
 		}
-		taskFactory.update($scope.list, $scope.task);
-		$location.path('/');
+		taskFactory.update($scope.list, $scope.task)
+		.then(
+			function success(response) {
+				$location.path('/');
+			},
+			function error (response) {
+				$location.path('/');
+			}
+		);
+		
 	};
 
  	$scope.$on('$viewContentLoaded', function() {
