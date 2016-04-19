@@ -76,7 +76,7 @@ input {
 .checkbox {
   width: auto;
   margin-top: 0px !important;
-  margin-right: 10px !important;
+  // margin-right: 10px !important;
 }
 
 .field_with_errors {
@@ -117,9 +117,13 @@ input {
 }
 
 .task-true {
-      text-decoration: line-through;
-      color: lightgray;
-    }
+  text-decoration: line-through;
+  color: lightgray;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
 
 /* navbar */
 

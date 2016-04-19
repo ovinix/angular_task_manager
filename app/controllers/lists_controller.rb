@@ -3,7 +3,7 @@ class ListsController < ApplicationController
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @lists = current_user.lists if current_user
+    @lists = current_user.lists.unscoped if current_user
   end
 
   def show
@@ -13,32 +13,14 @@ class ListsController < ApplicationController
     end
   end
 
-  def new
-    @list = current_user.lists.build
-    respond_to do |format|
-      format.html { redirect_to root_path }
-      format.js
-    end
-  end
-
-  def edit
-    respond_to do |format|
-      format.html { redirect_to root_path }
-      format.js
-    end
-  end
-
   def create
     @list = current_user.lists.build(list_params)
-
     respond_to do |format|
       if @list.save
         format.html { redirect_to root_path }
-        format.js
         format.json { render :show, status: :created, location: @list }
       else
         format.html { redirect_to root_path, alert: 'Invalid list.' }
-        format.js
         format.json { render json: @list.errors, status: :unprocessable_entity }
       end
     end
@@ -48,11 +30,9 @@ class ListsController < ApplicationController
     respond_to do |format|
       if @list.update(list_params)
         format.html { redirect_to root_path }
-        format.js
         format.json { render :show, status: :ok, location: @list }
       else
         format.html { redirect_to root_path, alert: 'Invalid list.' }
-        format.js
         format.json { render json: @list.errors, status: :unprocessable_entity }
       end
     end
@@ -62,7 +42,6 @@ class ListsController < ApplicationController
     @list.destroy
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'List was successfully destroyed.' }
-      format.js
       format.json { head :no_content }
     end
   end
@@ -71,7 +50,12 @@ class ListsController < ApplicationController
     # Confirms the correct user.
     def correct_user
       @list = current_user.lists.find_by(id: params[:id])
-      redirect_to root_path if cannot? :manage, @list
+      if cannot? :manage, @list
+        respond_to do |format|
+          format.html { redirect_to root_path  }
+          format.json { render json: { error: "Error" }, status: :bad_request }
+        end
+      end
     end
 
     def list_params

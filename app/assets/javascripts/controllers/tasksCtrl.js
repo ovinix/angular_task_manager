@@ -6,22 +6,41 @@ app.controller('tasksCtrl', [
 'taskFactory',
 'listFactory',
 function($scope, $location, $timeout, $routeParams, taskFactory, listFactory){
-	$scope.list = listFactory.read($routeParams.list_id);
-	if (typeof $scope.list === 'undefined' ) {
-		$location.path('/');
-		return;
-	}
+	$scope.list = {};
 
-	$scope.originalTask = taskFactory.read($routeParams.list_id, $routeParams.task_id);
-	if (typeof $scope.originalTask === 'undefined' ) {
-		$location.path('/');
-		return;
-	}
-	$scope.task = angular.copy($scope.originalTask);
+	listFactory.read($routeParams.list_id)
+	.then(
+		function success(response) {
+			$scope.list = response.data;
+			console.log('List read', response);
+		},
+		function error (response) {
+			console.log(response);
+			$location.path('/');
+		}
+	);
+
+	$scope.task = {};
+	taskFactory.read($routeParams.list_id, $routeParams.task_id)
+	.then(
+		function success(response) {
+			$scope.task = response.data;
+			console.log('Task read', response);
+		},
+		function error (response) {
+			console.log(response);
+			$location.path('/');
+		}
+	);
 
 	$scope.updTask = function() {
-		angular.copy($scope.task, $scope.originalTask);
-		taskFactory.update($scope.task);
+		if ($scope.task.done) {
+			$scope.task.completed_at = moment.utc().toJSON();
+		}
+		else {
+			$scope.task.completed_at = null;
+		}
+		taskFactory.update($scope.list, $scope.task);
 		$location.path('/');
 	};
 

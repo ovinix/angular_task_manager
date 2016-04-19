@@ -27,7 +27,7 @@
 						<h4><small>No TODOS for now.</small></h4>
 					</td>
 				</tr>
-				<tr ng-show="list.tasks.length" ng-repeat="task in list.tasks.slice().reverse()">
+				<tr ng-show="list.tasks.length" ng-repeat="task in list.tasks">
 					<td class="col-md-1 text-center"><input ng-model="task.done" ng-click="cmpltTask(list, task)" type="checkbox"></td>
 					<td class="task-{{task.done}} col-md-9">
 						<span class="glyphicon glyphicon-star" ng-class="{'star': task.done != true}" aria-hidden="true" ng-if="task.priority == 'important'"></span>
@@ -35,7 +35,7 @@
 					</td>
 					<td class="col-md-2 text-center">
 						<span ng-click="prtzTask(list, task)" class="glyphicon glyphicon glyphicon-star-empty" aria-hidden="true"></span> |
-						<a href="#/list/{{list.id}}/task/{{task.id}}">
+						<a ng-href="#/list/{{list.id}}/task/{{task.id}}">
 							<span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span>
 						</a> |
 						<span ng-click="delTask(list, task)" class="glyphicon glyphicon-trash" aria-hidden="true"></span>

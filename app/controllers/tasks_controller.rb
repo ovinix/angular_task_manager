@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   def show
     respond_to do |format|
       format.html { redirect_to root_path }
-      format.js
+      format.json
     end
   end
 
@@ -16,10 +16,10 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         format.html { redirect_to root_path, notice: 'Task was successfully created.' }
-        format.js
+        format.json { render json: @task, status: :created }
       else
         format.html { redirect_to root_path, alert: 'Invalid task.' }
-        format.js
+        format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -28,10 +28,10 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to root_path, notice: 'Task was successfully updated.' }
-        format.js
+        format.json { render json: @task, status: :ok }
       else
         format.html { redirect_to root_path, alert: 'Invalid task.' }
-        format.js
+        format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -40,7 +40,7 @@ class TasksController < ApplicationController
     @task.update_attribute(:completed_at, @task.completed? ? nil : Time.now)
     respond_to do |format|
       format.html { redirect_to root_path }
-      format.js
+      format.json { render json: @task, status: :ok }
     end
   end
 
@@ -48,7 +48,7 @@ class TasksController < ApplicationController
     @task.important? ? @task.normal! : @task.important!
     respond_to do |format|
       format.html { redirect_to root_path }
-      format.js
+      format.json { render json: @task, status: :ok }
     end
   end
 
@@ -56,7 +56,7 @@ class TasksController < ApplicationController
     @task.destroy
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Task was successfully destroyed.' }
-      format.js
+      format.json { head :no_content }
     end
   end
 
@@ -73,11 +73,11 @@ class TasksController < ApplicationController
     def task_params
       valid_params = params.require(:task).permit(:content, :completed_at, :deadline_at, :priority)
 
-      unless valid_params[:deadline_at].blank?
-        date_format = "%Y-%m-%d %I:%M %p"
-        offset = DateTime.now.strftime("%z")
-        valid_params[:deadline_at] = DateTime.strptime(valid_params[:deadline_at], date_format).change(offset: offset).to_s
-      end
+      # unless valid_params[:deadline_at].blank?
+      #   date_format = "%Y-%m-%d %I:%M %p"
+      #   offset = DateTime.now.strftime("%z")
+      #   valid_params[:deadline_at] = DateTime.strptime(valid_params[:deadline_at], date_format).change(offset: offset).to_s
+      # end
 
       return valid_params
     end

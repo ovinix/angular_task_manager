@@ -25,8 +25,8 @@ app.directive('listView', [function() {
 			scope.addNewTask = function() {
 				if (scope.newTaskContent === '') { return; }
 				scope.addTask(scope.list, {
-					id: scope.list.tasks.length + 1,
-					list_id: scope.list.id,
+					// id: scope.list.tasks.length + 1,
+					// list_id: scope.list.id,
 					content: scope.newTaskContent
 				});
 				scope.newTaskContent = '';
