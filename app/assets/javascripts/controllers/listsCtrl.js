@@ -6,7 +6,7 @@ function($scope, listFactory, taskFactory){
 	$scope.lists = [];
 	$scope.newListTitle = '';
 
-	$scope.getLists = function() {
+	getLists = function() {
 		listFactory.query()
 		.then(
 			function success (response) {
@@ -19,7 +19,7 @@ function($scope, listFactory, taskFactory){
 		);
 	};
 
-	$scope.getLists();
+	getLists();
 
 	$scope.addList = function() {
 		if ($scope.newListTitle === '') { return; }
@@ -92,7 +92,7 @@ function($scope, listFactory, taskFactory){
 		taskFactory.complete(list, task)
 		.then(
 			function success(response) {
-				$scope.getLists();
+				getLists();
 				console.log('completed', response);
 
 			},
@@ -106,7 +106,7 @@ function($scope, listFactory, taskFactory){
 		taskFactory.prioritize(list, task)
 		.then(
 			function success(response) {
-				$scope.getLists();
+				getLists();
 				console.log('priority changed', response);
 
 			},

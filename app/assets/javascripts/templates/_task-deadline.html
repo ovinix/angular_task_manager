@@ -1,0 +1,16 @@
+<div class="task-failed-deadline" ng-show="isFailed()">
+	<small>
+		<span class="glyphicon glyphicon glyphicon-time" aria-hidden="true"></span>
+		<span ng-hide="xs">
+			{{deadline | date: 'yyyy-MM-dd' : timezone}}
+		</span>
+	</small>	 	
+</div>
+<div class="task-deadline" ng-hide="isFailed()">					
+	<small>
+		<span class="glyphicon glyphicon glyphicon-time" aria-hidden="true"></span> 
+		<span ng-hide="xs">
+			{{deadline | date: 'yyyy-MM-dd' : timezone}}
+		</span>
+	</small>	 	
+</div>

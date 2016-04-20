@@ -35,7 +35,7 @@ app.directive('listView', [function() {
 	};
 }]);
 
-app.directive('listEditable', [function() {
+app.directive('listTitle', [function() {
 	return {
 		restrict: 'A',
 		scope: {
@@ -43,7 +43,7 @@ app.directive('listEditable', [function() {
 			updateList: '&',
 			deleteList: '&'
 		},
-		templateUrl: "_editable-field.html",
+		templateUrl: "_list-title.html",
 		link: function(scope, element, attrs) {
 			scope.editable = false;
 			scope.copyFieldValue = '';
@@ -61,6 +61,26 @@ app.directive('listEditable', [function() {
 			scope.cancel = function() {
 				scope.fieldValue = scope.copyFieldValue;
 				scope.changeState();
+			};
+		}
+	};
+}]);
+
+app.directive('taskDeadline', [function() {
+	return {
+		restrict: 'A',
+		scope: {
+			deadline: '@',
+			xs: '@'
+		},
+		templateUrl: '_task-deadline.html',
+		link: function(scope, element, attrs) {
+			scope.isFailed = function() {
+				if (moment(scope.deadline) > moment.utc()) {
+					return false;
+				} else {
+					return true;
+				}
 			};
 		}
 	};

@@ -2,7 +2,7 @@
 	<div class="panel-heading" data-toggle="" data-target="#list-{{list.id}}-todos">
 		<div class="row">
 			<div class="col-md-12">
-				<div list-editable field-value="list.title" delete-list="delList(list)" update-list="updList(list)"></div>
+				<div list-title field-value="list.title" delete-list="delList(list)" update-list="updList(list)"></div>
 			</div>
 		</div>
 	</div>
@@ -28,17 +28,25 @@
 					</td>
 				</tr>
 				<tr ng-show="list.tasks.length" ng-repeat="task in list.tasks">
-					<td class="col-md-1 text-center"><input ng-model="task.done" ng-click="cmpltTask(list, task)" type="checkbox"></td>
-					<td class="task-{{task.done}} col-md-9">
+					<td class="col-md-1 col-xs-1 text-center vert-align"><input ng-model="task.done" ng-click="cmpltTask(list, task)" type="checkbox"></td>
+					<td class="task-{{task.done}} col-md-9 col-xs-9">
 						<span class="glyphicon glyphicon-star" ng-class="{'star': task.done != true}" aria-hidden="true" ng-if="task.priority == 'important'"></span>
 						{{task.content}}
 					</td>
-					<td class="col-md-2 text-center">
-						<span ng-click="prtzTask(list, task)" class="glyphicon glyphicon glyphicon-star-empty" aria-hidden="true"></span> |
-						<a ng-href="#/list/{{list.id}}/task/{{task.id}}">
-							<span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span>
-						</a> |
-						<span ng-click="delTask(list, task)" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+					<td class="col-md-2 col-xs-2 text-center vert-align">
+						<div class="hoverable">
+							<span ng-click="prtzTask(list, task)" class="glyphicon glyphicon glyphicon-star-empty" aria-hidden="true"></span> |
+							<a ng-href="#/list/{{list.id}}/task/{{task.id}}">
+								<span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							</a> |
+							<span ng-click="delTask(list, task)" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+						</div>
+						<div class="visible visible-sm visible-md visible-lg">
+							<div task-deadline deadline="{{task.deadline_at}}" ng-if="task.deadline_at"></div>
+						</div>
+						<div class="visible visible-xs">
+							<div task-deadline xs="{{true}}" deadline="{{task.deadline_at}}" ng-if="task.deadline_at"></div>
+						</div>	
 					</td>
 				</tr>
 			</tbody>
