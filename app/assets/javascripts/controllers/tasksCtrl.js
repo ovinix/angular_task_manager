@@ -6,42 +6,10 @@ app.controller('tasksCtrl', [
 'taskFactory',
 'listFactory',
 function($scope, $location, $timeout, $routeParams, taskFactory, listFactory){
-	$scope.list = {};
-
-	listFactory.read($routeParams.list_id)
-	.then(
-		function success(response) {
-			$scope.list = response.data;
-			console.log('List read', response);
-			if (!isDTPinit) {
-				initDateTimePicker();
-			};
-		},
-		function error (response) {
-			console.log(response);
-			$location.path('/');
-		}
-	);
-
-	$scope.task = {};
-	taskFactory.read($routeParams.list_id, $routeParams.task_id)
-	.then(
-		function success(response) {
-			$scope.task = response.data;
-			console.log('Task read', response);
-			if (!isDTPinit) {
-				initDateTimePicker();
-			};
-		},
-		function error (response) {
-			console.log(response);
-			$location.path('/');
-		}
-	);
-
-	var isDTPinit = false;
+	var isDTPInited = false;
 	initDateTimePicker = function() {
-		isDTPinit = true;
+		isDTPInited = true;
+		console.log('initDateTimePicker');
 		$timeout(function(){
 	        $('#datetimepicker1').datetimepicker({
 				format: "YYYY-MM-DD h:mm A"
@@ -59,6 +27,40 @@ function($scope, $location, $timeout, $routeParams, taskFactory, listFactory){
             });
         }, 0);
 	};
+
+	$scope.list = {};
+	$scope.task = {};
+
+	listFactory.read($routeParams.list_id)
+	.then(
+		function success(response) {
+			$scope.list = response.data;
+			console.log('List read', response);
+			if (!isDTPInited && $scope.task.content) {
+				initDateTimePicker();
+			}
+		},
+		function error (response) {
+			console.log(response);
+			$location.path('/');
+		}
+	);
+
+	
+	taskFactory.read($routeParams.list_id, $routeParams.task_id)
+	.then(
+		function success(response) {
+			$scope.task = response.data;
+			console.log('Task read', response);
+			if (!isDTPInited && $scope.list.title) {
+				initDateTimePicker();
+			}
+		},
+		function error (response) {
+			console.log(response);
+			$location.path('/');
+		}
+	);
 
 	$scope.updTask = function() {
 		if ($scope.task.done) {
