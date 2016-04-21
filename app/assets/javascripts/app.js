@@ -13,7 +13,7 @@ app.config(['$routeProvider',function($routeProvider) {
 		.otherwise({redirectTo: '/'});
 }]);
 
-app.directive('listView', [function() {
+app.directive('listView', ['$location', function($location) {
 	return {
 		restrict: 'A',
 		templateUrl: "_list.html",
@@ -30,6 +30,11 @@ app.directive('listView', [function() {
 					content: scope.newTaskContent
 				});
 				scope.newTaskContent = '';
+			};
+
+			scope.editTask = function(list, task){
+				path = "list/" + list.id + "/task/" + task.id;
+			    $location.path(path);
 			};
 		}
 	};
