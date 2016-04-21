@@ -12,8 +12,8 @@ Rails.application.routes.draw do
     end
   end
 
-  scope 'task/:task_id', as: :task do
-    resources :comments, only: [:create, :destroy]
+  scope 'tasks/:task_id', as: :task do
+    resources :comments, defaults: {format: :json}, only: [:create, :destroy]
   end
 
   root        'lists#index'

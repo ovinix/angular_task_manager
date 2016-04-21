@@ -1,0 +1,9 @@
+<div class="comment" id="comment-{{comment.id}}">
+  <span class="comment-author">{{comment.user_name}}</span> 
+  <span class="comment-time">{{comment.created_at | date: 'yyyy-MM-dd hh:mm a' : timezone}}</span> 
+  <span ng-click="delComment(comment)" class="close">×</span>
+  <div class="comment-text">{{comment.content}}</div>
+  <div ng-show="comment.file">
+    <b>File:</b> <a ng-href="{{comment.file.url}}">{{comment.file.name}}</a>
+  </div>
+</div>

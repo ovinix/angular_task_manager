@@ -1,4 +1,4 @@
-var app = angular.module('taskManager', ['ngRoute', 'templates']);
+var app = angular.module('taskManager', ['ngRoute', 'templates', 'ngFileUpload', 'bootstrap.fileField']);
 
 app.config(['$routeProvider',function($routeProvider) {
 	$routeProvider
@@ -88,5 +88,19 @@ app.directive('taskDeadline', [function() {
 				}
 			};
 		}
+	};
+}]);
+
+app.directive('commentView', [function() {
+	return {
+		restrict: 'A',
+		templateUrl: '_comment.html'
+	};
+}]);
+
+app.directive('commentForm', [function() {
+	return {
+		restrict: 'A',
+		templateUrl: '_comment-form.html'
 	};
 }]);

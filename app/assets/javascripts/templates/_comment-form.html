@@ -1,0 +1,18 @@
+<form ng-submit="addComment()">
+	<div class="input-group">
+		<input ng-model="comment.content" type="text" class="form-control" placeholder="Start typing here to create a comment.." required maxlength="140">
+		<div class="input-group-btn">
+			<button type="submit" class="btn btn-success">Add Comment</button>
+		</div>
+	</div>
+	<div ng-show="comment.content.length > 120" style="font-size: 10px; color: red;">
+		{{comment.content.length + "/140"}}
+	</div>
+	<br/>
+	<!-- <input ng-model="comment.file" type="file" id="comment_file" ngf-select> -->
+	<file-field id="comment_file" class="btn btn-primary" ng-model="comment.file">Attach a file to a comment..</file-field>
+	{{comment.file.name}}
+	<code ng-show="errors.file">
+		{{errors.file[0]}}
+	</code>
+</form>

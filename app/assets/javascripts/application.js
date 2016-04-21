@@ -19,4 +19,7 @@
 //= require angular
 //= require angular-route
 //= require angular-rails-templates
+//= require ng-file-upload
+//= require ng-file-upload-shim
+//= require angular-bootstrap-file-field
 //= require_tree .

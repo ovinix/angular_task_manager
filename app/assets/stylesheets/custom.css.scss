@@ -151,6 +151,7 @@ input {
   cursor: pointer;
   a {
     color: white;
+    opacity: 1;
     text-decoration: none;
   }
   .pull-right span:hover {
@@ -297,24 +298,24 @@ input {
 
 /* comments */
 
-// .comments {
-//   padding: 20px 0;
-// }
+.comments {
+  padding: 20px 0;
+}
 
-// .comment {
-//   padding: 10px 20px;
-//   margin: 10px 0;
-//   border-radius: 10px;
-//   background: $gray-lighter;
-// }
+.comment {
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 10px;
+  background: $gray-lighter;
+}
 
-// .comment-author {
-//   font-weight: bold;
-// }
+.comment-author {
+  font-weight: bold;
+}
 
-// .comment-time {
-//   color: $gray-light;
-// }
+.comment-time {
+  color: $gray-light;
+}
 
 .star {
     color: $brand-warning;
