@@ -73,6 +73,12 @@ input {
   height: auto !important;
 }
 
+.checkbox {
+  width: auto;
+  margin-top: 0px !important;
+  margin-right: 10px !important;
+}
+
 .field_with_errors {
   @extend .has-error;
   .form-control {
