@@ -92,11 +92,12 @@ function($scope, listFactory, taskFactory){
 		taskFactory.complete(list, task)
 		.then(
 			function success(response) {
-				getLists();
+				task.done = response.data.done;
 				console.log('completed', response);
 
 			},
 			function error (response) {
+				getLists();
 				console.log(response);
 			}
 		);
@@ -106,11 +107,12 @@ function($scope, listFactory, taskFactory){
 		taskFactory.prioritize(list, task)
 		.then(
 			function success(response) {
-				getLists();
+				task.priority = response.data.priority;
 				console.log('priority changed', response);
 
 			},
 			function error (response) {
+				getLists();
 				console.log(response);
 			}
 		);

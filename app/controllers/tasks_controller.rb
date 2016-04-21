@@ -16,7 +16,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         format.html { redirect_to root_path, notice: 'Task was successfully created.' }
-        format.json { render json: @task, status: :created }
+        format.json { render :show, status: :created }
       else
         format.html { redirect_to root_path, alert: 'Invalid task.' }
         format.json { render json: @task.errors, status: :unprocessable_entity }
@@ -28,7 +28,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to root_path, notice: 'Task was successfully updated.' }
-        format.json { render json: @task, status: :ok }
+        format.json { render :show, status: :ok }
       else
         format.html { redirect_to root_path, alert: 'Invalid task.' }
         format.json { render json: @task.errors, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class TasksController < ApplicationController
     @task.update_attribute(:completed_at, @task.completed? ? nil : Time.now)
     respond_to do |format|
       format.html { redirect_to root_path }
-      format.json { render json: @task, status: :ok }
+      format.json { render :show, status: :ok }
     end
   end
 
@@ -48,7 +48,7 @@ class TasksController < ApplicationController
     @task.important? ? @task.normal! : @task.important!
     respond_to do |format|
       format.html { redirect_to root_path }
-      format.json { render json: @task, status: :ok }
+      format.json { render :show, status: :ok }
     end
   end
 
