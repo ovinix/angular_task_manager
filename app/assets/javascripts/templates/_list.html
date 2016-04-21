@@ -28,7 +28,9 @@
 					</td>
 				</tr>
 				<tr ng-show="list.tasks.length" ng-repeat="task in list.tasks | orderBy:['done','priority', '-created_at']">
-					<td class="col-md-1 col-xs-1 text-center vert-align"><input ng-model="task.done" ng-click="cmpltTask(list, task)" type="checkbox"></td>
+					<td class="col-md-1 col-xs-1 text-center vert-align">
+						<input ng-model="task.done" ng-click="cmpltTask(list, task)" type="checkbox" class="task-checkbox">
+					</td>
 					<td ng-dblclick="editTask(list, task)" class="task-{{task.done}} col-md-9 col-xs-9 vert-align">
 						<span class="glyphicon glyphicon-star" ng-class="{'star': task.done != true}" aria-hidden="true" ng-if="task.priority == 'important'"></span>
 						{{task.content}}

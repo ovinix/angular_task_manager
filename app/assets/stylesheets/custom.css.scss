@@ -73,12 +73,6 @@ input {
   height: auto !important;
 }
 
-.checkbox {
-  width: auto;
-  margin-top: 0px !important;
-  // margin-right: 10px !important;
-}
-
 .field_with_errors {
   @extend .has-error;
   .form-control {
@@ -196,6 +190,9 @@ input {
   s {
     color: $gray-light;
   }
+  .task-checkbox {
+    width: auto;
+  }
 }
 
 .table-curved {
@@ -281,11 +278,11 @@ input {
 //   background:         linear-gradient(180deg, #f6f3e1 10%, #d18d0e 250%);
 // }
 
-// .input-group-addon .group-checkbox {
-//   width: auto;
-//   margin-top: 4px !important;
-//   margin-right: 0px !important;
-// }
+.input-group-addon .group-checkbox {
+  width: auto;
+  margin-top: 4px !important;
+  margin-right: 0px !important;
+}
 
 // .file-input-wrapper {
 //   margin-top: 10px;
