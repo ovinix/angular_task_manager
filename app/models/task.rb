@@ -4,12 +4,6 @@ class Task < ActiveRecord::Base
 
   has_many :comments, dependent: :destroy
 
-  # if Rails.env.production? # Sort order for Postgres
-  #   default_scope -> { order(completed_at: :desc, priority: :desc, created_at: :desc ) }
-  # else                    # Sort order for SQLite
-  #   default_scope -> { order(:completed_at, priority: :desc, created_at: :desc ) }
-  # end  
-
   validates :user_id, presence: true
   validates :list_id, presence: true
   validates :content, presence: true, length: { maximum: 140 }

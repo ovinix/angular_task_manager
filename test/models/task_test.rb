@@ -31,17 +31,4 @@ class TaskTest < ActiveSupport::TestCase
     @task.content = "a" * 141
     assert_not @task.valid?
   end
-
-  test "order should be important first" do
-    assert_equal tasks(:important), @user.tasks.first
-  end
-
-  test "order should be most recent first" do
-    @user.tasks.find_by(id: tasks(:important).id).destroy
-    assert_equal tasks(:most_recent), @user.tasks.first
-  end
-
-  test "order should be completed last" do
-    assert_equal tasks(:completed), @user.tasks.last
-  end
 end
