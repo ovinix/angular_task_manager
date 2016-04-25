@@ -11,7 +11,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "should get create" do
     assert_no_difference('@user.comments.count') do
-      post :create, task_id: @task.id, comment: { content: @comment.content }, format: :js
+      post :create, task_id: @task.id, comment: { content: @comment.content }, format: :json
     end
     assert_response :unauthorized
 
@@ -23,7 +23,7 @@ class CommentsControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_difference '@user.comments.count', 1 do
-      post :create, task_id: @task.id, comment: { content: @comment.content }, format: :js
+      post :create, task_id: @task.id, comment: { content: @comment.content }, format: :json
     end
 
     assert_match @comment.content.to_s, response.body
@@ -31,7 +31,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "should get destroy" do
     assert_no_difference('@user.comments.count') do
-      delete :destroy, task_id: @task.id, id: @comment.id, format: :js
+      delete :destroy, task_id: @task.id, id: @comment.id, format: :json
     end
     assert_response :unauthorized
 
@@ -43,7 +43,7 @@ class CommentsControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_difference '@user.comments.count', -1 do
-      delete :destroy, task_id: @task.id, id: @comment.id, format: :js
+      delete :destroy, task_id: @task.id, id: @comment.id, format: :json
     end
   end
 end

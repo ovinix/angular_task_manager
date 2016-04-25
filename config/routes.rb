@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for  :users, :path => '',
                       :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   # resources :lists, except: :index do
-  resources :lists, defaults: {format: :json} do
+  resources :lists, defaults: {format: :json}, except: [:new, :edit] do
     resources :tasks, except: [:index, :new, :edit] do
       member do
         patch :complete

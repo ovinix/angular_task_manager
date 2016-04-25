@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :correct_user, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:show, :update, :destroy]
 
   def index
     @lists = current_user.lists.unscoped if current_user

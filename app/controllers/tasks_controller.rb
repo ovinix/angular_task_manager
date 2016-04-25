@@ -71,14 +71,6 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      valid_params = params.require(:task).permit(:content, :completed_at, :deadline_at, :priority)
-
-      # unless valid_params[:deadline_at].blank?
-      #   date_format = "%Y-%m-%d %I:%M %p"
-      #   offset = DateTime.now.strftime("%z")
-      #   valid_params[:deadline_at] = DateTime.strptime(valid_params[:deadline_at], date_format).change(offset: offset).to_s
-      # end
-
-      return valid_params
+      params.require(:task).permit(:content, :completed_at, :deadline_at, :priority)
     end
 end

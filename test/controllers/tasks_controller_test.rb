@@ -14,7 +14,7 @@ class TasksControllerTest < ActionController::TestCase
     get :show, id: @task.id, list_id: @list.id
     assert_redirected_to new_user_session_path
 
-    post :show, id: @task.id, list_id: @list.id, format: :js
+    get :show, id: @task.id, list_id: @list.id, format: :json
     assert_response :unauthorized
 
     sign_in @user
@@ -22,13 +22,13 @@ class TasksControllerTest < ActionController::TestCase
     get :show, id: @task.id, list_id: @list.id
     assert_redirected_to root_path
 
-    post :show, id: @task.id, list_id: @list.id, format: :js
+    get :show, id: @task.id, list_id: @list.id, format: :json
     assert_match @task.content, response.body
   end
 
   test "should create task" do
     assert_no_difference('@user.tasks.count') do
-      post :create, list_id: @list.id, task: { content: @task.content }, format: :js
+      post :create, list_id: @list.id, task: { content: @task.content }, format: :json
     end
     assert_response :unauthorized
 
@@ -40,14 +40,14 @@ class TasksControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_difference '@user.tasks.count', 1 do
-      post :create, list_id: @list.id, task: { content: @task.content }, format: :js
+      post :create, list_id: @list.id, task: { content: @task.content }, format: :json
     end
 
     assert_match @task.content.to_s, response.body
   end
 
   test "should update task" do
-    patch :update, id: @task.id, list_id: @list.id, task: { content: @task.content }, format: :js
+    patch :update, id: @task.id, list_id: @list.id, task: { content: @task.content }, format: :json
     assert_response :unauthorized
 
     patch :update, id: @task.id, list_id: @list.id, task: { content: @task.content }
@@ -55,14 +55,14 @@ class TasksControllerTest < ActionController::TestCase
 
     sign_in @user
 
-    patch :update, id: @task.id, list_id: @list.id, task: { content: "Updated" }, format: :js
+    patch :update, id: @task.id, list_id: @list.id, task: { content: "Updated" }, format: :json
 
     assert_match "Updated".to_s, response.body
   end
 
   test "should destroy task" do
     assert_no_difference('@user.tasks.count') do
-      delete :destroy, id: @task.id, list_id: @list.id, format: :js
+      delete :destroy, id: @task.id, list_id: @list.id, format: :json
     end
     assert_response :unauthorized
 
@@ -74,12 +74,12 @@ class TasksControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_difference '@user.tasks.count', -1 do
-      delete :destroy, id: @task.id, list_id: @list.id, format: :js
+      delete :destroy, id: @task.id, list_id: @list.id, format: :json
     end
   end
 
   test "should complete task" do
-    patch :complete, id: @task.id, list_id: @list.id, format: :js
+    patch :complete, id: @task.id, list_id: @list.id, format: :json
     assert_response :unauthorized
 
     patch :complete, id: @task.id, list_id: @list.id
@@ -88,15 +88,15 @@ class TasksControllerTest < ActionController::TestCase
     sign_in @user
 
     assert @task.completed?
-    patch :complete, id: @task.id, list_id: @list.id, format: :js
+    patch :complete, id: @task.id, list_id: @list.id, format: :json
     assert_not @task.reload.completed?
 
-    patch :complete, id: @task.id, list_id: @list.id, format: :js
+    patch :complete, id: @task.id, list_id: @list.id, format: :json
     assert @task.reload.completed?
   end
 
   test "should prioritize task" do
-    patch :prioritize, id: @task.id, list_id: @list.id, format: :js
+    patch :prioritize, id: @task.id, list_id: @list.id, format: :json
     assert_response :unauthorized
 
     patch :prioritize, id: @task.id, list_id: @list.id
@@ -105,10 +105,10 @@ class TasksControllerTest < ActionController::TestCase
     sign_in @user
 
     assert @task.normal?
-    patch :prioritize, id: @task.id, list_id: @list.id, format: :js
+    patch :prioritize, id: @task.id, list_id: @list.id, format: :json
     assert @task.reload.important?
 
-    patch :prioritize, id: @task.id, list_id: @list.id, format: :js
+    patch :prioritize, id: @task.id, list_id: @list.id, format: :json
     assert @task.reload.normal?
   end
 
@@ -119,7 +119,7 @@ class TasksControllerTest < ActionController::TestCase
     assert_no_match @task.content, response.body
     assert_redirected_to root_path
 
-    post :show, id: @task.id, list_id: @list.id, format: :js
+    post :show, id: @task.id, list_id: @list.id, format: :json
     assert_no_match @task.content, response.body
     assert_redirected_to root_path
   end
@@ -127,7 +127,7 @@ class TasksControllerTest < ActionController::TestCase
   test "shouldn't create task with another user" do
     sign_in @other_user
     assert_no_difference '@user.tasks.count' do
-      post :create, list_id: @list.id, task: { content: @task.content }, format: :js
+      post :create, list_id: @list.id, task: { content: @task.content }, format: :json
     end
     assert_redirected_to root_path
   end
@@ -135,7 +135,7 @@ class TasksControllerTest < ActionController::TestCase
   test "shouldn't update task with another user" do
     sign_in @other_user
     
-    patch :update, id: @task.id, list_id: @list.id, task: { content: "Updated" }, format: :js
+    patch :update, id: @task.id, list_id: @list.id, task: { content: "Updated" }, format: :json
     assert_no_match "Updated".to_s, response.body
     assert_redirected_to root_path
   end
@@ -153,7 +153,7 @@ class TasksControllerTest < ActionController::TestCase
     sign_in @other_user
     
     assert @task.completed?
-    patch :complete, id: @task.id, list_id: @list.id, format: :js
+    patch :complete, id: @task.id, list_id: @list.id, format: :json
     assert @task.reload.completed?
     assert_redirected_to root_path
   end
@@ -162,7 +162,7 @@ class TasksControllerTest < ActionController::TestCase
     sign_in @other_user
     
     assert @task.normal?
-    patch :prioritize, id: @task.id, list_id: @list.id, format: :js
+    patch :prioritize, id: @task.id, list_id: @list.id, format: :json
     assert_not @task.reload.important?
     assert_redirected_to root_path
   end
