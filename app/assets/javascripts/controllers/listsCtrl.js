@@ -55,6 +55,7 @@ function($scope, listFactory, taskFactory){
 		listFactory.update(list)
 		.then(
 			function success(response) {
+				list.title = response.data.title;
 				console.log('update', response);
 			},
 			function error (response) {

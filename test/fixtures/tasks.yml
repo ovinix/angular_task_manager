@@ -10,6 +10,7 @@ two:
   user: first
   list: one
   content: 'MyString2'
+  deadline_at: <%= 10.hours.ago %>
   created_at: <%= 10.minutes.ago %>
 
 most_recent:

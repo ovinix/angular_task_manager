@@ -84,6 +84,7 @@ function($scope, $location, $timeout, $routeParams, taskFactory, listFactory, co
 	};
 
 	$scope.addComment = function() {
+		if(typeof $scope.comment === 'undefined') { return; };
 		commentFactory.create($scope.task, $scope.comment)
 		.then(
 			function success(response) {

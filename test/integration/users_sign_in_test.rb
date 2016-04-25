@@ -24,8 +24,7 @@ class UsersSignInTest < ActionDispatch::IntegrationTest
     fill_in "Email", with: @user.email.to_s
     fill_in "Password", with: "password"
     click_button "Log in"
-    assert_match @user.lists.first.title.to_s, page.body
-    assert page.has_content?(@user.lists.first.title.to_s)
+    assert page.assert_selector('a', destroy_user_session_path)
     assert current_path == root_path
   end
 

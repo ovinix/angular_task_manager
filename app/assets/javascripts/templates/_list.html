@@ -10,7 +10,7 @@
 		<div class="panel-body">
 			<form ng-submit="addNewTask()">
 				<div class="input-group">
-					<input ng-model="newTaskContent" type="text" class="form-control" placeholder="Start typing here to create a task.." required maxlength="140">
+					<input name="task_content" ng-model="newTaskContent" type="text" class="form-control" placeholder="Start typing here to create a task.." required maxlength="140">
 					<div class="input-group-btn">
 						<button type="submit" class="btn btn-success">Add Task</button>
 					</div>
@@ -27,7 +27,7 @@
 						<h4><small>No TODOS for now.</small></h4>
 					</td>
 				</tr>
-				<tr ng-show="list.tasks.length" ng-repeat="task in list.tasks | orderBy:['done','priority', '-created_at']">
+				<tr ng-show="list.tasks.length" ng-repeat="task in list.tasks | orderBy:['done','priority', '-created_at']" id="task-{{task.id}}">
 					<td class="col-md-1 col-xs-1 text-center vert-align">
 						<input ng-model="task.done" ng-click="cmpltTask(list, task)" type="checkbox" class="task-checkbox">
 					</td>

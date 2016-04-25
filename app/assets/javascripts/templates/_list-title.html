@@ -5,11 +5,11 @@
 	</div>
 	<div class="pull-right">
 		<span ng-click="changeState()" class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true" title="Edit"></span> |
-		<span ng-click="deleteList()" class="glyphicon glyphicon-trash" aria-hidden="true" title="Delete"></span>
+		<span ng-click="deleteList()" class="glyphicon glyphicon-trash" aria-hidden="true" title="Delete" ng-confirm-click="Are you sure?"></span>
 	</div>
 </div>
 <form ng-show="editable" class="form-inline">
-	<input type='text' ng-model='fieldValue' class="form-control" required maxlength="50">
+	<input name="list_title" type='text' ng-model='fieldValue' class="form-control" required maxlength="50">
 	<button ng-click="save()" type="submit" class="btn btn-success">Save</button>
 	<button ng-click="cancel()" class="btn btn-default">Cancel</button>
 </form>

@@ -19,84 +19,57 @@ class UserListsTest < ActionDispatch::IntegrationTest
   end
 
   test "lists layout" do
-    assert page.has_link?("Add TODO List", href: new_list_path)
+    assert page.has_field?("new_list")
+    assert page.has_button?("Add TODO List")
     @user.lists.each do |list|
-      assert page.assert_selector('a', edit_list_path(list))
-      assert page.assert_selector("a[data-method='delete']", list_path(list))
+      assert page.has_content?(list.title)
+      assert assert_selector("#list-#{list.id} .panel-heading span[title='Edit']")
+      assert assert_selector("#list-#{list.id} .panel-heading span[title='Delete']")
     end    
   end
 
   test "should delete a list" do
     assert_difference "@user.lists.count", -1 do
-      # find("a[href='#{list_path(@list)}'][data-method='delete']").click
-      # page.driver.accept_modal :confirm
-      accept_confirm do
-        find("a[href='#{list_path(@list)}'][data-method='delete']").click
-      end
+      find("#list-#{@list.id} .panel-heading span[title='Delete']").click
       sleep 0.1 # need to wait for Ajax
     end
     assert_not page.has_content?(@list.title.to_s)
   end
 
-  test "shouldn't delete a list" do
-    assert_no_difference "@user.lists.count" do
-      # find("a[href='#{list_path(@list)}'][data-method='delete']").click
-      # page.driver.dismiss_modal :confirm
-      dismiss_confirm do
-        find("a[href='#{list_path(@list)}'][data-method='delete']").click
-      end
-    end
-    assert page.has_content?(@list.title.to_s)
-  end
-
   test "should update a list title" do
-    find("a[href='#{edit_list_path(@list)}']").click
+    find("#list-#{@list.id} .panel-heading span[title='Edit']").click
     fill_in "list_title", with: "New title"
     click_button("Save")
     assert page.has_content?("New title")
   end
 
   test "shouldn't update a list title" do
-    find("a[href='#{edit_list_path(@list)}']").click
+    find("#list-#{@list.id} .panel-heading span[title='Edit']").click
     fill_in "list_title", with: "New title"
-    click_button("Close", match: :first)
+    click_button("Cancel")
     assert_not page.has_content?("New title")
   end
 
   test "shouldn't update a list with blank title" do
-    find("a[href='#{edit_list_path(@list)}']").click
+    find("#list-#{@list.id} .panel-heading span[title='Edit']").click
     fill_in "list_title", with: "    "
     click_button("Save")
-    assert page.has_css?('.field_with_errors #list_title')
-    click_button("Close", match: :first)
+    assert page.has_content?(@list.title)
   end
 
   test "should create a list" do
     assert_difference "@user.lists.count", 1 do
-      find("a[href='#{new_list_path}']").click
-      fill_in "list_title", with: "New title"
-      click_button("Save")
+      fill_in "new_list", with: "New title"
+      click_button("Add TODO List")
       sleep 0.1 # need to wait for Ajax
     end
     assert page.has_content?("New title")
   end
 
-  test "shouldn't create a list" do
-    assert_no_difference "@user.lists.count" do
-      find("a[href='#{new_list_path}']").click
-      fill_in "list_title", with: "New title"
-      click_button("Close", match: :first)
-    end
-    assert_not page.has_content?("New title")
-  end
-
   test "shouldn't create a list with blank title" do
     assert_no_difference "@user.lists.count" do
-      find("a[href='#{new_list_path}']").click
-      fill_in "list_title", with: "     "
-      click_button("Save")
+      fill_in "new_list", with: "     "
+      click_button("Add TODO List")
     end
-    assert page.has_css?('.field_with_errors #list_title')
-    click_button("Close", match: :first)
   end
 end

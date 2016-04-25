@@ -11,13 +11,10 @@ class UserCommentsTest < ActionDispatch::IntegrationTest
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.start 
     log_in_as @user
-    visit root_path
-    page.execute_script("$('.hoverable').show();") # Selenium couldn't interacte with invisible elements
-    find("a[href='#{list_task_path(@list, @task)}'][data-toggle='modal']").click
+    visit "#/list/#{@task.list_id}/task/#{@task.id}"
   end
 
   def teardown
-    click_button("Close", match: :first)
     click_link("Sign out", href: destroy_user_session_path)
     DatabaseCleaner.clean
     Capybara.use_default_driver
@@ -26,13 +23,15 @@ class UserCommentsTest < ActionDispatch::IntegrationTest
   test "comments layout" do
     assert page.has_button?("Add Comment") 
     @task.comments.each do |comment|
-      assert page.assert_selector("a[data-method='delete']", task_comment_path(comment.task, comment))
+      assert page.has_content?(comment.user.name)
+      assert page.has_content?(comment.content)
+      assert page.assert_selector("#comment-#{comment.id} span[title='Delete']")
     end  
   end
 
   test "should delete a comment" do
     assert_difference "@user.comments.count", -1 do
-      find("a[href='#{task_comment_path(@task, @comment)}'][data-method='delete']").click
+      find("#comment-#{@comment.id} span[title='Delete']").click
       sleep 0.1 # need to wait for Ajax
     end
     assert_not page.has_content?(@comment.content.to_s)
@@ -52,6 +51,5 @@ class UserCommentsTest < ActionDispatch::IntegrationTest
       fill_in "comment_content", with: "     "
       click_button("Add Comment")
     end
-    assert has_css?('.field_with_errors #comment_content')
   end
 end
