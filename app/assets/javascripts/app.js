@@ -13,6 +13,16 @@ app.config(['$routeProvider',function($routeProvider) {
 		.otherwise({redirectTo: '/'});
 }]);
 
+app.filter('fromNow', ['$filter', function($filter) {
+	return function(date) {
+		if (moment.utc().diff(moment(date), 'days') < 7) {
+			return moment(date).fromNow();
+		} else {
+			return $filter('date')(date, 'yyyy-MM-dd hh:mm a');
+		}
+	};
+}]);
+
 app.directive('listView', ['$location', function($location) {
 	return {
 		restrict: 'A',
