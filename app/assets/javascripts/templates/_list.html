@@ -37,11 +37,11 @@
 					</td>
 					<td class="col-md-2 col-xs-2 text-center vert-align">
 						<div class="hoverable">
-							<span ng-click="prtzTask(list, task)" class="glyphicon glyphicon glyphicon-star-empty" aria-hidden="true"></span> |
+							<span ng-click="prtzTask(list, task)" class="glyphicon glyphicon glyphicon-star-empty" aria-hidden="true" title="Prioritize"></span> |
 							<a ng-href="#/list/{{list.id}}/task/{{task.id}}">
-								<span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span>
+								<span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true" title="Edit"></span>
 							</a> |
-							<span ng-click="delTask(list, task)" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							<span ng-click="delTask(list, task)" class="glyphicon glyphicon-trash" aria-hidden="true" title="Delete"></span>
 						</div>
 						<div class="visible visible-sm visible-md visible-lg">
 							<div task-deadline deadline="{{task.deadline_at}}" ng-if="task.deadline_at"></div>

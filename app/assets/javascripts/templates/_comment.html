@@ -1,7 +1,7 @@
 <div class="comment" id="comment-{{comment.id}}">
   <span class="comment-author">{{comment.user_name}}</span> 
-  <span class="comment-time">{{comment.created_at | fromNow}}</span> 
-  <span ng-click="delComment(comment)" class="close">×</span>
+  <span class="comment-time"><small>{{comment.created_at | fromNow}}</small></span> 
+  <span ng-click="delComment(comment)" class="close" title="Delete">×</span>
   <div class="comment-text">{{comment.content}}</div>
   <div ng-show="comment.file">
     <b>File:</b> <a ng-href="{{comment.file.url}}">{{comment.file.name}}</a>
