@@ -121,7 +121,7 @@ class TasksControllerTest < ActionController::TestCase
 
     post :show, id: @task.id, list_id: @list.id, format: :json
     assert_no_match @task.content, response.body
-    assert_redirected_to root_path
+    assert_response :bad_request
   end
 
   test "shouldn't create task with another user" do
@@ -129,7 +129,7 @@ class TasksControllerTest < ActionController::TestCase
     assert_no_difference '@user.tasks.count' do
       post :create, list_id: @list.id, task: { content: @task.content }, format: :json
     end
-    assert_redirected_to root_path
+    assert_response :bad_request
   end
 
   test "shouldn't update task with another user" do
@@ -137,7 +137,7 @@ class TasksControllerTest < ActionController::TestCase
     
     patch :update, id: @task.id, list_id: @list.id, task: { content: "Updated" }, format: :json
     assert_no_match "Updated".to_s, response.body
-    assert_redirected_to root_path
+    assert_response :bad_request
   end
 
   test "shouldn't destroy task with another user" do
@@ -155,7 +155,7 @@ class TasksControllerTest < ActionController::TestCase
     assert @task.completed?
     patch :complete, id: @task.id, list_id: @list.id, format: :json
     assert @task.reload.completed?
-    assert_redirected_to root_path
+    assert_response :bad_request
   end
 
   test "shouldn't prioritize task with another user" do
@@ -164,6 +164,6 @@ class TasksControllerTest < ActionController::TestCase
     assert @task.normal?
     patch :prioritize, id: @task.id, list_id: @list.id, format: :json
     assert_not @task.reload.important?
-    assert_redirected_to root_path
+    assert_response :bad_request
   end
 end
