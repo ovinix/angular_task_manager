@@ -7,28 +7,6 @@ app.controller('tasksCtrl', [
 'listFactory',
 'commentFactory',
 function($scope, $location, $timeout, $routeParams, taskFactory, listFactory, commentFactory){
-	// var isDTPInited = false;
-	// initDateTimePicker = function() {
-	// 	isDTPInited = true;
-	// 	console.log('initDateTimePicker');
-	// 	$timeout(function(){
-	//         $('#datetimepicker1').datetimepicker({
-	// 			format: "YYYY-MM-DD h:mm A"
-	// 		})
-	// 		.on('dp.change', function(event) {
- //                console.log('time changed!');
- //                console.log($('#deadline_at').val());
- //                if ($('#datetimepicker1').data("DateTimePicker").date()) {
-	//                 console.log($('#datetimepicker1').data("DateTimePicker").date().toJSON());
-	//                 $scope.task.deadline_at = $('#datetimepicker1').data("DateTimePicker").date().toJSON();
-	//             } else {
-	//             	$scope.task.deadline_at = null;
-	//             }
-	//             $scope.$apply();
- //            });
- //        }, 0);
-	// };
-
 	$scope.list = {};
 	$scope.task = {};
 	$scope.errors = {};
@@ -37,10 +15,6 @@ function($scope, $location, $timeout, $routeParams, taskFactory, listFactory, co
 	.then(
 		function success(response) {
 			$scope.list = response.data;
-			console.log('List read', response);
-			// if (!isDTPInited && $scope.task.content) {
-			// 	initDateTimePicker();
-			// }
 		},
 		function error (response) {
 			console.log(response);
@@ -53,10 +27,6 @@ function($scope, $location, $timeout, $routeParams, taskFactory, listFactory, co
 	.then(
 		function success(response) {
 			$scope.task = response.data;
-			console.log('Task read', response);
-			// if (!isDTPInited && $scope.list.title) {
-			// 	initDateTimePicker();
-			// }
 		},
 		function error (response) {
 			console.log(response);
@@ -80,7 +50,6 @@ function($scope, $location, $timeout, $routeParams, taskFactory, listFactory, co
 				$location.path('/');
 			}
 		);
-		
 	};
 
 	$scope.addComment = function() {
@@ -118,10 +87,7 @@ function($scope, $location, $timeout, $routeParams, taskFactory, listFactory, co
 				format: "YYYY-MM-DD h:mm A"
 			})
 			.on('dp.change', function(event) {
-                console.log('time changed!');
-                console.log($('#deadline_at').val());
                 if ($('#datetimepicker1').data("DateTimePicker").date()) {
-	                console.log($('#datetimepicker1').data("DateTimePicker").date().toJSON());
 	                $scope.task.deadline_at = $('#datetimepicker1').data("DateTimePicker").date().toJSON();
 	            } else {
 	            	$scope.task.deadline_at = null;

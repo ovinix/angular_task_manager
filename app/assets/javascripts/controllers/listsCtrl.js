@@ -28,7 +28,6 @@ function($scope, listFactory, taskFactory){
 		}).then(
 			function success(response) {
 				$scope.lists.push(response.data);
-				console.log(response);
 			},
 			function error (response) {
 				console.log(response);
@@ -43,7 +42,6 @@ function($scope, listFactory, taskFactory){
 			function success(response) {
 				var index = $scope.lists.indexOf(list);
 				$scope.lists.splice(index, 1);
-				console.log('delList success', response);
 			},
 			function error (response) {
 				console.log(response);
@@ -56,7 +54,6 @@ function($scope, listFactory, taskFactory){
 		.then(
 			function success(response) {
 				list.title = response.data.title;
-				console.log('update', response);
 			},
 			function error (response) {
 				console.log(response);
@@ -94,8 +91,6 @@ function($scope, listFactory, taskFactory){
 		.then(
 			function success(response) {
 				task.done = response.data.done;
-				console.log('completed', response);
-
 			},
 			function error (response) {
 				getLists();
@@ -109,8 +104,6 @@ function($scope, listFactory, taskFactory){
 		.then(
 			function success(response) {
 				task.priority = response.data.priority;
-				console.log('priority changed', response);
-
 			},
 			function error (response) {
 				getLists();

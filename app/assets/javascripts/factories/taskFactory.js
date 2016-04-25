@@ -26,12 +26,6 @@ app.factory('taskFactory', ['$http', function($http){
 	};
 
 	factory.prioritize = function(list, task) {
-		// if (task.priority != 'important') {
-		// 	task.priority = 'important';
-		// } else {
-		// 	task.priority = 'normal';
-		// }
-		// console.log("prioritizeTask", task);
 		return $http.patch('/lists/' + list.id
 						+ '/tasks/' + task.id
 						+ '/prioritize', task);

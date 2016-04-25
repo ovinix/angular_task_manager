@@ -29,10 +29,7 @@ $(document).on("page:load", function() {
 });
 $(document).on("page:load", ready);
 
-
-
 /* other */
 closeFlash = function() {
 	$("#flash").remove();
 }
-

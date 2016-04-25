@@ -15,7 +15,6 @@ app.factory('commentFactory', ['$http', 'Upload', function($http, Upload){
 	};
 
 	factory.create = function(task, comment) {
-		// return $http.post('/tasks/' + task.id + '/comments', comment);
 		return factory.upload(comment, "POST", '/tasks/' + task.id + '/comments');
 	};
 
