@@ -63,7 +63,12 @@ class TasksController < ApplicationController
   private
     def correct_user
       @list = current_user.lists.find_by(id: params[:list_id])
-      redirect_to root_path if cannot? :manage, @list
+      if cannot? :manage, @list
+        respond_to do |format|
+          format.html { redirect_to root_path  }
+          format.json { render json: { error: "Error" }, status: :bad_request }
+        end
+      end
     end
 
     def set_task

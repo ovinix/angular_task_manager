@@ -28,7 +28,12 @@ class CommentsController < ApplicationController
   private
     def correct_user
       @task = current_user.tasks.find_by(id: params[:task_id])
-      redirect_to root_path if cannot? :manage, @task
+      if cannot? :manage, @task
+        respond_to do |format|
+          format.html { redirect_to root_path  }
+          format.json { render json: { error: "Error" }, status: :bad_request }
+        end
+      end
     end
 
     def set_comment

@@ -10,7 +10,6 @@ function($scope, listFactory, taskFactory){
 		listFactory.query()
 		.then(
 			function success (response) {
-				console.log(response);
 				$scope.lists = response.data;
 			},
 			function error (response) {
@@ -27,9 +26,10 @@ function($scope, listFactory, taskFactory){
 			title: $scope.newListTitle
 		}).then(
 			function success(response) {
-				$scope.lists.push(response.data);
+				$scope.lists.unshift(response.data);
 			},
 			function error (response) {
+				getLists();
 				console.log(response);
 			}
 		);
@@ -44,6 +44,7 @@ function($scope, listFactory, taskFactory){
 				$scope.lists.splice(index, 1);
 			},
 			function error (response) {
+				getLists();
 				console.log(response);
 			}
 		);
@@ -56,6 +57,7 @@ function($scope, listFactory, taskFactory){
 				list.title = response.data.title;
 			},
 			function error (response) {
+				getLists();
 				console.log(response);
 			}
 		);
@@ -68,6 +70,7 @@ function($scope, listFactory, taskFactory){
 				list.tasks.push(response.data);
 			},
 			function error (response) {
+				getLists();
 				console.log(response);
 			}
 		);
@@ -81,6 +84,7 @@ function($scope, listFactory, taskFactory){
 				list.tasks.splice(index, 1);
 			},
 			function error (response) {
+				getLists();
 				console.log(response);
 			}
 		);

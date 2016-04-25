@@ -3,7 +3,7 @@ class ListsController < ApplicationController
   before_action :correct_user, only: [:show, :update, :destroy]
 
   def index
-    @lists = current_user.lists.unscoped if current_user
+    @lists = current_user.lists if current_user
   end
 
   def show
